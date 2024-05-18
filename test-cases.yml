@@ -1,28 +1,85 @@
 ---
 - summary: |
-    Проверка оформления заказа
+    Проверка поика по ключевым словам 
   requirement: |
-    При оформлении товара должно появляться модальное окно с подтвкерждением заказа
+    При вводе название существующего товара, поиск выдает искомый товар
   prerequisites: |
-    В корзине должен быть один или несколько товаров
+    Товар должен быть в каталоге товаров
   test-data: |
+   Brown Perfume
   steps:
-    - заходим в корзину
-    - нажимаем Checkout
-    - Нажимаем кнопку «Сделать заказ»
+    - Вводим Brown Perfume в поиск
   expected-result: |
-    Должно появляться модальное окно с подтвкерждением заказа
+    выдало Brown Perfume
 
 - summary: |
-    Проверка оформления заказа
+    Ввод несуществующего товара
   requirement: |
-    При оформлении товара должно появляться модальное окно с подтвкерждением заказа
-  prerequisites: |
-    В корзине должен быть один или несколько товаров
+    При вводе несуществующего товара поиск выдаст страницу "ничеого не найдено"
   test-data: |
+    Diapers
   steps:
-    - заходим в корзину
-    - нажимаем Checkout
-    - Нажимаем кнопку «Сделать заказ»
+    - Вводим Diapers в поиск
   expected-result: |
-    Должно появляться модальное окно с подтвкерждением заказа
+    Отправляет на страницу "ничеого не найдено"
+
+- summary: |
+    Проверка поика по одной букве 
+  requirement: |
+    При вводе одной буквы будет производится поиск
+  prerequisites: |
+    Буква должна быть в названии хотябы одного товара
+  test-data: |
+    c
+  steps:
+    - Вводим c
+  expected-result: |
+    Выдает товары в наименовании которых есть буква "c"
+---
+- summary: |
+    Поиск по категориям
+  requirement: |
+    Товар должен отфильтровываться при выборе определенной категории
+  prerequisites: |
+    Заходим на https://hexlet-products-store.vercel.app/
+  steps:
+    - Выбираем категорию home-decoration
+  expected-result: |
+    На стрвнице товары только из категории home-decoratio
+
+- summary: |
+    Фильтр по бренду
+  requirement: |
+    При выборе фильтрации по бренду на странице остаются товары только выбраного бренда
+  prerequisites:
+    Заходим на https://hexlet-products-store.vercel.app/
+  test-data: |
+    Все фильтры отключены
+  steps:
+    - выбирем бренд Apple
+    - выбирем бренд Dry Rose
+    - выбирем бренд luxury palace
+  expected-result: |
+    На экране остаются товары только выбраных брендов
+---
+- summary: |
+    Проверка Checkbox - In Stock "on"
+  requirement: |
+    При актеврованном Checkbox - In Stock показывает только товары в наличии
+  prerequisites: |
+    Заходим на https://hexlet-products-store.vercel.app/
+  test-data: |
+    Checkbox - In Stock "on"
+  expected-result: |
+    На странице только товары в наличии
+
+- summary: |
+    Проверка Checkbox - In Stock "off"
+  requirement: |
+    При Checkbox - In Stock "off" показывает все товары
+  prerequisites:
+    Заходим на https://hexlet-products-store.vercel.app/
+  test-data: |
+    Checkbox - In Stock "off"
+  expected-result: |
+    Показывает страницу Ничего ненайдено
